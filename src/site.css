@@ -15,6 +15,7 @@
   --coral: #f6a48c;
   --sun: #ffe066;
   --linkedin: #0a66c2;
+  --telegram: #229ed9;
 }
 
 * {
@@ -1670,23 +1671,22 @@ footer a {
   min-height: 64px;
   padding: 7px 26px 7px 7px;
   border-radius: 999px;
-  background: #fff;
-  box-shadow:
-    0 10px 26px #0b213824,
-    0 0 0 1px #0b213812;
-  color: var(--navy);
-  font-size: 16px;
+  background: var(--telegram);
+  box-shadow: 0 10px 26px #229ed952;
+  color: #fff;
+  /* Large text keeps white readable on the light Telegram blue. */
+  font-size: 19px;
   font-weight: 700;
   line-height: 1.3;
   transition:
+    background-color 0.2s,
     box-shadow 0.2s,
     translate 0.2s;
 }
 
 .hero-cta:hover {
-  box-shadow:
-    0 14px 32px #0b213833,
-    0 0 0 1px #0b21381f;
+  background: #1a8bc4;
+  box-shadow: 0 14px 32px #229ed966;
   translate: 0 -2px;
 }
 
@@ -1701,7 +1701,8 @@ footer a {
   height: 50px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: var(--sun);
+  background: #fff;
+  color: var(--telegram);
 }
 
 .hero-cta-icon .contact-brand {
@@ -1945,8 +1946,10 @@ footer a {
   }
 
   .hero-cta {
+    gap: 12px;
     max-width: 440px;
-    font-size: 15px;
+    padding-right: 20px;
+    font-size: 17px;
   }
 
   .hero-actions .text-link {
@@ -3744,6 +3747,15 @@ header > nav {
 @media (max-width: 440px) {
   .service-tab .site-icon {
     display: none;
+  }
+
+  .hero-cta {
+    font-size: 16px;
+  }
+
+  .hero-cta-icon {
+    width: 44px;
+    height: 44px;
   }
 }
 

@@ -1,0 +1,35 @@
+{
+  "site_url": "https://waymark-darya-career.shrewdstork3.chatgpt.site/",
+  "site_name": "Дарья Хамидуллина — карьерная стратегия и HR-консалтинг",
+  "email": "darya.kh.alex@gmail.com",
+  "telegram_url": "https://t.me/DaryaKHnikn",
+  "locales": {
+    "ru": {
+      "path": "",
+      "title": "Карьерный консультант в Алматы и онлайн — Дарья Хамидуллина",
+      "description": "Карьерные консультации, резюме и LinkedIn, подготовка к интервью. HR-консалтинг, IT-рекрутинг и Executive Search для бизнеса. Дарья Хамидуллина — Алматы и онлайн.",
+      "person_name": "Дарья Хамидуллина",
+      "job_title": "Карьерный консультант и HR-консультант",
+      "social_locale": "ru_KZ",
+      "image_alt": "Архитектурная иллюстрация: выбор карьерного пути"
+    },
+    "en": {
+      "path": "en/",
+      "title": "Career Consultant in Almaty & Online — Darya Khamidullina",
+      "description": "Career consulting, CV and LinkedIn reviews, interview preparation. HR consulting, IT recruitment and Executive Search for businesses. Almaty and online worldwide.",
+      "person_name": "Darya Khamidullina",
+      "job_title": "Career consultant and HR consultant",
+      "social_locale": "en_KZ",
+      "image_alt": "Architectural illustration of choosing a career path"
+    },
+    "kk": {
+      "path": "kk/",
+      "title": "Алматыда және онлайн мансап кеңесшісі — Дарья Хамидуллина",
+      "description": "Мансаптық кеңес, түйіндеме мен LinkedIn профилін талдау, сұхбатқа дайындық. Бизнеске HR-консалтинг, IT-рекрутинг және Executive Search. Алматы және онлайн.",
+      "person_name": "Дарья Хамидуллина",
+      "job_title": "Мансап және HR кеңесшісі",
+      "social_locale": "kk_KZ",
+      "image_alt": "Мансап жолын таңдау туралы сәулеттік иллюстрация"
+    }
+  }
+}

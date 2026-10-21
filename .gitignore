@@ -1,5 +1,8 @@
-
 .DS_Store
 site.tar.gz
 
 waymark-production.zip
+
+node_modules/
+__pycache__/
+*.pyc

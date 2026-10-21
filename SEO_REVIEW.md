@@ -15,7 +15,7 @@ Implemented for `https://waymark-darya-career.shrewdstork3.chatgpt.site/`.
 
 ## Validation
 
-- `python3 scripts/check-seo.py` with `python3 -m http.server 4173 --bind 127.0.0.1 --directory dist` running: all three pages, unique IDs, anchors, assets, language, H1, metadata, canonical, hreflang, service counts, sitemap, robots, ZIP and ten HTTP routes pass.
+- `python3 scripts/check-seo.py` (static checks; optional HTTP checks use `--base-url`): all three pages, unique IDs, anchors, assets, language, H1, metadata, canonical, hreflang, service counts, sitemap, robots, ZIP and ten HTTP routes pass.
 - `node --check dist/site.js`: passes.
 - jsdom: CSS parsing and runtime on RU/EN/KK, language links, menu open/close, Escape, outside click, business navigation and structured data pass.
 - Browser runtime returned no available browsers. No rendered screenshots, Lighthouse/PageSpeed scores or Core Web Vitals measurements were obtained.
@@ -23,9 +23,9 @@ Implemented for `https://waymark-darya-career.shrewdstork3.chatgpt.site/`.
 
 ## Maintaining the site
 
-Edit `src/site.html` for retained content/design or `scripts/build-seo.py` for SEO metadata and page generation. Run `python3 scripts/build-seo.py` to regenerate `dist/` and `waymark-production.zip`. Deploy the entire contents of `dist/`, retaining `en/` and `kk/` subdirectories; the old two-file deployment instructions no longer apply.
+Edit `src/pages/*.html` for page content, `src/site.css` and `src/site.js` for presentation/behavior, and `src/site-config.json` for SEO metadata. The build uses `src/templates/document.html`; Telegram message text lives in `src/telegram-messages.json`. See `README.md` for the full development workflow. Run `python3 scripts/build-seo.py` to regenerate `dist/` and `waymark-production.zip`. Deploy the entire contents of `dist/`, retaining `en/` and `kk/` subdirectories; the old two-file deployment instructions no longer apply.
 
-When moving to a different public origin, run `SITE_URL=https://your-domain.example python3 scripts/build-seo.py`, update the check's BASE, and rebuild before upload. When public access is desired, verify anonymous HTTP 200 and absence of server-level noindex restrictions, then verify the actual public domain in Search Console and submit its sitemap. Access stays private until explicitly changed.
+When moving to a different public origin, run `SITE_URL=https://your-domain.example python3 scripts/build-seo.py`, use the same SITE_URL for checks, and rebuild before upload. When public access is desired, verify anonymous HTTP 200 and absence of server-level noindex restrictions, then verify the actual public domain in Search Console and submit its sitemap. Access stays private until explicitly changed.
 
 ## References
 
@@ -33,3 +33,7 @@ When moving to a different public origin, run `SITE_URL=https://your-domain.exam
 - [Localized versions](https://developers.google.com/search/docs/specialty/international/localized-versions)
 - [JavaScript SEO](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)
 - [Sitemaps](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)
+
+## Source maintainability
+
+The retained monolithic `src/site.html` was replaced by readable localized HTML, shared CSS/JavaScript and explicit metadata/message files. Build scripts use named functions and an HTML reader rather than extracting and rewriting JavaScript strings. Body element structure, visible text, destinations and JSON-LD were compared against the previous release; only unused counter attributes and the obsolete hidden footer logo were removed. Ten DOM interaction checks pass. A malformed URL fragment now leaves the controls working.

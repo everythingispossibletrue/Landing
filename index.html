@@ -1,13 +1,22 @@
 <!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=./dist/">
-  <title>Дарья Хамидуллина — карьерный консультант</title>
-  <link rel="canonical" href="./dist/">
-</head>
-<body>
-  <p><a href="./dist/">Открыть сайт</a></p>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Дарья Хамидуллина — карьерный консультант</title>
+    <link rel="canonical" href="./dist/" />
+    <script>
+      // This entry point is for opening the repository; production serves dist/.
+      const destination = new URL("./dist/", window.location.href);
+      destination.search = window.location.search;
+      destination.hash = window.location.hash;
+      window.location.replace(destination.href);
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=./dist/" />
+    </noscript>
+  </head>
+  <body>
+    <p><a href="./dist/">Открыть сайт</a></p>
+  </body>
 </html>

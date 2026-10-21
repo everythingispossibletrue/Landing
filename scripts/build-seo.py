@@ -1,95 +1,274 @@
-"""Build crawlable localized static pages from the retained landing-page template.
-Override SITE_URL when moving to a public/custom domain, then rebuild.
+"""Build the three localized static pages and the deployment archive.
+
+Usage: python3 scripts/build-seo.py
+Set SITE_URL to build for another domain. No third-party packages are required.
 """
+
+from html import escape
+import json
 from pathlib import Path
-from html import escape, unescape
-import json, os, re, zipfile
-from xml.etree import ElementTree as ET
-ROOT=Path(__file__).resolve().parent.parent
-OUT=ROOT/'dist'
-BASE=os.environ.get('SITE_URL','https://waymark-darya-career.shrewdstork3.chatgpt.site').rstrip('/')+'/'
-s=(ROOT/'src/site.html').read_text()
-m=re.search(r'const pages=(\{.*?\});',s,re.S);pages=json.loads(m[1])
-meta={
-'ru':{'title':'Карьерный консультант в Алматы и онлайн — Дарья Хамидуллина','description':'Карьерные консультации, резюме и LinkedIn, подготовка к интервью. HR-консалтинг, IT-рекрутинг и Executive Search для бизнеса. Дарья Хамидуллина — Алматы и онлайн.','h1':'Карьерный консультант<br>и HR-консалтинг<br><em>в Алматы и онлайн.</em>','services':'Карьерные консультации,<br>резюме и подготовка к интервью','business':'HR-консалтинг, IT-рекрутинг<br>и Executive Search для бизнеса','name':'Дарья Хамидуллина','job':'Карьерный консультант и HR-консультант','locale':'ru_KZ'},
-'en':{'title':'Career Consultant in Almaty & Online — Darya Khamidullina','description':'Career consulting, CV and LinkedIn reviews, interview preparation. HR consulting, IT recruitment and Executive Search for businesses. Almaty and online worldwide.','h1':'Career consulting<br>and HR consulting<br><em>in Almaty and online.</em>','services':'Career consulting,<br>CV reviews and interview preparation','business':'HR consulting, IT recruitment<br>and Executive Search for business','name':'Darya Khamidullina','job':'Career consultant and HR consultant','locale':'en_KZ'},
-'kk':{'title':'Алматыда және онлайн мансап кеңесшісі — Дарья Хамидуллина','description':'Мансаптық кеңес, түйіндеме мен LinkedIn профилін талдау, сұхбатқа дайындық. Бизнеске HR-консалтинг, IT-рекрутинг және Executive Search. Алматы және онлайн.','h1':'Мансап кеңесі<br>және HR-консалтинг<br><em>Алматыда және онлайн.</em>','services':'Мансап кеңесі, түйіндеме<br>және сұхбатқа дайындық','business':'Бизнеске HR-консалтинг,<br>IT-рекрутинг және Executive Search','name':'Дарья Хамидуллина','job':'Мансап және HR кеңесшісі','locale':'kk_KZ'}}
-paths={'ru':'','en':'en/','kk':'kk/'}
-def text(h):return re.sub(r'\s+',' ',unescape(re.sub('<[^>]+>',' ',h))).strip()
-def schema(lang,html):
- c=meta[lang];url=BASE+paths[lang];person=BASE+'#person'
- services=[]
- for article in re.findall(r'<article class="offer\b.*?</article>',html,re.S):
-  name=text(re.search(r'<h3[^>]*>(.*?)</h3>',article,re.S)[1]);sid=re.search(r'id="([^"]+)"',article)[1]
-  item={'@type':'Service','@id':url+'#'+sid,'name':name,'url':url+'#'+sid,'provider':{'@id':person},'areaServed':{'@type':'Place','name':'Online'},'availableChannel':{'@type':'ServiceChannel','serviceUrl':url+'#contact'}}
-  amount=re.search(r'<strong>([\d\s]+) ₸</strong>',article)
-  if amount:item['offers']={'@type':'Offer','price':re.sub(r'\s','',amount[1]),'priceCurrency':'KZT','url':url+'#'+sid}
-  services.append(item)
- business=html.split('<ul class="business-list">')[1].split('</ul>')[0]
- for i,h in enumerate(re.findall(r'<li>(.*?)</li>',business,re.S),1):
-  service={'@type':'Service','@id':url+'#business-service-'+str(i),'name':text(re.search(r'<h3>(.*?)</h3>',h,re.S)[1]),'provider':{'@id':person},'url':url+'#business'}
-  desc=re.search(r'<p>(.*?)</p>',h,re.S)
-  if desc:service['description']=text(desc[1])
-  services.append(service)
- return {'@context':'https://schema.org','@graph':[
- {'@type':'Person','@id':person,'name':c['name'],'url':BASE,'jobTitle':c['job'],'email':'darya.kh.alex@gmail.com','sameAs':['https://t.me/DaryaKHnikn'],'workLocation':{'@type':'Place','name':'Almaty, Kazakhstan'},'knowsLanguage':['ru','en','kk']},
- {'@type':'WebSite','@id':BASE+'#website','url':BASE,'name':'Дарья Хамидуллина — карьерная стратегия и HR-консалтинг','inLanguage':['ru','en','kk'],'publisher':{'@id':person}},
- {'@type':'WebPage','@id':url+'#webpage','url':url,'name':c['title'],'description':c['description'],'inLanguage':lang,'isPartOf':{'@id':BASE+'#website'},'about':{'@id':person},'mainEntity':{'@id':url+'#services-catalog'}},
- {'@type':'OfferCatalog','@id':url+'#services-catalog','name':c['services'].replace('<br>',' '),'itemListElement':[{'@type':'Offer','itemOffered':{'@id':v['@id']}} for v in services]},*services]}
-css=re.search(r'<style>(.*?)</style>',s,re.S)[1]
-css=css.replace('.languages button','.languages a')
-css+='\n.languages a{display:inline-flex;align-items:center;justify-content:center;line-height:1.65;text-decoration:none}\n'
-(OUT/'site.css').write_text(css)
-runtime=re.search(r'<script>const pages=.*?</script>',s,re.S)[0][len('<script>'):-len('</script>')]
-runtime=re.sub(r'^const pages=\{.*?\};\s*','',runtime,count=1,flags=re.S)
-start=runtime.index('function setMetadata(');end=runtime.index('function bind(',start)
-runtime=runtime[:start]+"function setMetadata(lang){document.documentElement.lang=lang}\n"+runtime[end:]
-runtime=runtime.replace("button.setAttribute('aria-pressed',String(button.dataset.lang===lang));button.onclick=()=>setLanguage(button.dataset.lang)","if(button.dataset.lang===lang)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current')")
-start=runtime.index('function setLanguage(');end=runtime.index('if(location.hash)',start)
-runtime=runtime[:start]+"bind(document.documentElement.lang);\n"+runtime[end:]
-# Old query-string bookmarks remain usable, while clean static paths are canonical.
-runtime="const legacyLanguage=new URLSearchParams(location.search).get('lang');if(['ru','en','kk'].includes(legacyLanguage)){const link=document.querySelector('[data-lang=\"'+legacyLanguage+'\"]');if(link)location.replace(link.href+location.hash)}\n"+runtime
-(OUT/'site.js').write_text(runtime)
-for lang,html in pages.items():
- c=meta[lang];prefix='./' if lang=='ru' else '../';url=BASE+paths[lang]
- html=re.sub(r'<h1>.*?</h1>','<h1>'+c['h1']+'</h1>',html,count=1,flags=re.S)
- html=re.sub(r'(id="services".*?<h2>).*?</h2>',lambda m:m[1]+c['services']+'</h2>',html,count=1,flags=re.S)
- html=re.sub(r'(<h2 id="business-title">).*?</h2>',lambda m:m[1]+c['business']+'</h2>',html,count=1,flags=re.S)
- def language_link(m):
-  code=m[1];href=prefix+paths[code]
-  return '<a data-lang="'+code+'" href="'+href+'" hreflang="'+code+'" lang="'+code+'"'+(' class="active" aria-current="page"' if code==lang else '')+'>'+m[2]+'</a>'
- html=re.sub(r'<button data-lang="(ru|kk|en)">(.*?)</button>',language_link,html)
- html=html.replace('src="./hero.jpg"','src="'+prefix+'hero.jpg"')
- data=schema(lang,html)
- head='<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0c213b">'
- head+='<title>'+escape(c['title'])+'</title><meta name="description" content="'+escape(c['description'],quote=True)+'">'
- head+='<meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="'+url+'">'
- for code in ['ru','en','kk','x-default']:
-  head+='<link rel="alternate" hreflang="'+code+'" href="'+BASE+paths.get(code,'')+'">'
- for prop,val in {'og:type':'website','og:site_name':'Дарья Хамидуллина','og:title':c['title'],'og:description':c['description'],'og:url':url,'og:locale':c['locale'],'og:image':BASE+'hero.jpg','og:image:width':'1122','og:image:height':'1402','og:image:alt':{'ru':'Архитектурная иллюстрация: выбор карьерного пути','en':'Architectural illustration of choosing a career path','kk':'Мансап жолын таңдау туралы сәулеттік иллюстрация'}[lang]}.items():
-  head+='<meta property="'+prop+'" content="'+escape(val,quote=True)+'">'
- for other in meta:
-  if other!=lang:head+='<meta property="og:locale:alternate" content="'+meta[other]['locale']+'">'
- for name,val in {'twitter:card':'summary_large_image','twitter:title':c['title'],'twitter:description':c['description'],'twitter:image':BASE+'hero.jpg'}.items():head+='<meta name="'+name+'" content="'+escape(val,quote=True)+'">'
- head+='<link rel="icon" href="'+prefix+'favicon.svg" type="image/svg+xml"><link rel="preload" as="image" href="'+prefix+'hero.jpg" fetchpriority="high"><link rel="stylesheet" href="'+prefix+'site.css">'
- head+='<script type="application/ld+json">'+json.dumps(data,ensure_ascii=False).replace('</','<\\/')+'</script><script src="'+prefix+'site.js" defer></script>'
- # Retain progress indicator and all page UI, but deliver real content without JS.
- body_start=s.index('<body>')+len('<body>');site_start=s.index('<div id="site">',body_start)
- body_prefix=s[body_start:site_start]
- output='<!DOCTYPE html><html lang="'+lang+'"><head>'+head+'</head><body>'+body_prefix+'<div id="site">'+html+'</div></body></html>'
- dest=OUT/paths[lang]/'index.html';dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(output)
-(OUT/'favicon.svg').write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220"><rect width="220" height="220" rx="54" fill="#102b4c"/><rect x="83" y="59" width="97" height="40" rx="20" fill="#79c6ed"/><rect x="39" y="123" width="97" height="40" rx="20" fill="#fff"/></svg>')
-(OUT/'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: '+BASE+'sitemap.xml\n')
-ET.register_namespace('','http://www.sitemaps.org/schemas/sitemap/0.9');ET.register_namespace('xhtml','http://www.w3.org/1999/xhtml')
-ns='{http://www.sitemaps.org/schemas/sitemap/0.9}';xh='{http://www.w3.org/1999/xhtml}'
-root=ET.Element(ns+'urlset')
-for lang in paths:
- node=ET.SubElement(root,ns+'url');ET.SubElement(node,ns+'loc').text=BASE+paths[lang]
- for code in ['ru','en','kk','x-default']:ET.SubElement(node,xh+'link',{'rel':'alternate','hreflang':code,'href':BASE+paths.get(code,'')})
-ET.ElementTree(root).write(OUT/'sitemap.xml',encoding='utf-8',xml_declaration=True)
-# Keep the older auxiliary copies accurate too.
-for name in ['robots.txt','sitemap.xml']:(ROOT/'deployment-extras'/name).write_bytes((OUT/name).read_bytes())
-with zipfile.ZipFile(ROOT/'waymark-production.zip','w',zipfile.ZIP_DEFLATED) as z:
- for f in sorted(OUT.rglob('*')):
-  if f.is_file():z.write(f,f.relative_to(OUT))
-print('Built static RU /, EN /en/, KK /kk/, shared CSS/JS, sitemap, robots and production ZIP.')
+import re
+import shutil
+from string import Template
+import sys
+import tempfile
+from urllib.parse import quote
+from xml.etree import ElementTree
+import zipfile
+
+from site_config import (
+    ARCHIVE_PATH,
+    OUTPUT_DIRECTORY,
+    PROJECT_ROOT,
+    SOURCE_DIRECTORY,
+    load_config,
+)
+from structured_data import build_structured_data
+
+STATIC_ASSETS = ("site.css", "site.js", "hero.jpg", "favicon.svg")
+SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9"
+XHTML_NAMESPACE = "http://www.w3.org/1999/xhtml"
+PAGE_PLACEHOLDER = re.compile(r"\$\{(telegram_[^}]*|locale_[^}]*|asset_prefix)\}")
+
+
+def html_attributes(attributes: dict) -> str:
+    return " ".join(
+        f'{name}="{escape(str(value), quote=True)}"'
+        for name, value in attributes.items()
+    )
+
+
+def meta_tag(content: str, *, name=None, property_name=None) -> str:
+    key = "property" if property_name else "name"
+    return "<meta " + html_attributes({key: property_name or name, "content": content}) + ">"
+
+
+def link_tag(**attributes) -> str:
+    return "<link " + html_attributes(attributes) + ">"
+
+
+def language_urls(config: dict) -> dict:
+    urls = {
+        language: config["site_url"] + metadata["path"]
+        for language, metadata in config["locales"].items()
+    }
+    urls["x-default"] = config["site_url"]
+    return urls
+
+
+def build_head(config: dict, language: str, content: str) -> str:
+    metadata = config["locales"][language]
+    page_url = config["site_url"] + metadata["path"]
+    asset_prefix = "../" * len(Path(metadata["path"]).parts) or "./"
+    image_url = config["site_url"] + "hero.jpg"
+
+    tags = [
+        '<meta charset="UTF-8">',
+        meta_tag("width=device-width,initial-scale=1", name="viewport"),
+        meta_tag("#0c213b", name="theme-color"),
+        "<title>" + escape(metadata["title"]) + "</title>",
+        meta_tag(metadata["description"], name="description"),
+        meta_tag("index,follow,max-image-preview:large", name="robots"),
+        link_tag(rel="canonical", href=page_url),
+    ]
+    for code, url in language_urls(config).items():
+        tags.append(link_tag(rel="alternate", hreflang=code, href=url))
+
+    social_metadata = {
+        "og:type": "website",
+        "og:site_name": "Дарья Хамидуллина",
+        "og:title": metadata["title"],
+        "og:description": metadata["description"],
+        "og:url": page_url,
+        "og:locale": metadata["social_locale"],
+        "og:image": image_url,
+        "og:image:width": "1122",
+        "og:image:height": "1402",
+        "og:image:alt": metadata["image_alt"],
+    }
+    for property_name, value in social_metadata.items():
+        tags.append(meta_tag(value, property_name=property_name))
+    for other_language, other_metadata in config["locales"].items():
+        if other_language != language:
+            tags.append(meta_tag(
+                other_metadata["social_locale"], property_name="og:locale:alternate"
+            ))
+
+    twitter_metadata = {
+        "twitter:card": "summary_large_image",
+        "twitter:title": metadata["title"],
+        "twitter:description": metadata["description"],
+        "twitter:image": image_url,
+    }
+    for name, value in twitter_metadata.items():
+        tags.append(meta_tag(value, name=name))
+
+    tags.extend([
+        link_tag(rel="icon", href=asset_prefix + "favicon.svg", type="image/svg+xml"),
+        link_tag(**{
+            "rel": "preload",
+            "as": "image",
+            "href": asset_prefix + "hero.jpg",
+            "fetchpriority": "high",
+        }),
+        link_tag(rel="stylesheet", href=asset_prefix + "site.css"),
+    ])
+    structured_data = build_structured_data(config, language, content)
+    # Escaping </ prevents page text from closing the JSON-LD script element.
+    schema_json = json.dumps(structured_data, ensure_ascii=False, indent=2).replace("</", "<\\/")
+    tags.append('<script type="application/ld+json">\n' + schema_json + "\n</script>")
+    tags.append(f'<script src="{escape(asset_prefix, quote=True)}site.js" defer></script>')
+    return "\n    ".join(line for tag in tags for line in tag.splitlines())
+
+
+def render_page_links(markup: str, links: dict) -> str:
+    """Replace reserved link tokens while preserving dollar signs in page copy."""
+    def replace(match):
+        name = match[1]
+        if name not in links:
+            raise ValueError(f"Unknown page link placeholder: ${{{name}}}")
+        return links[name]
+
+    rendered = PAGE_PLACEHOLDER.sub(replace, markup)
+    if re.search(r"\$\{(?:telegram_|locale_|asset_prefix)", rendered):
+        raise ValueError("Unclosed page link placeholder in page markup.")
+    return rendered
+
+
+def build_pages(config: dict, output_directory: Path) -> None:
+    template_path = SOURCE_DIRECTORY / "templates" / "document.html"
+    template = Template(template_path.read_text(encoding="utf-8"))
+    messages_path = SOURCE_DIRECTORY / "telegram-messages.json"
+    messages = json.loads(messages_path.read_text(encoding="utf-8"))
+
+    for language, metadata in config["locales"].items():
+        source_path = SOURCE_DIRECTORY / "pages" / f"{language}.html"
+        asset_prefix = "../" * len(Path(metadata["path"]).parts) or "./"
+        link_values = {
+            "telegram_" + name.replace("-", "_"): escape(
+                config["telegram_url"] + "?text=" + quote(message, safe=""), quote=True
+            )
+            for name, message in messages[language].items()
+        }
+        link_values["asset_prefix"] = asset_prefix
+        for code, locale in config["locales"].items():
+            link_values["locale_" + code] = asset_prefix + locale["path"]
+        content = render_page_links(source_path.read_text(encoding="utf-8"), link_values).rstrip()
+        document = template.substitute(
+            language=language,
+            head=build_head(config, language, content),
+            content="\n    ".join(content.splitlines()),
+        )
+        output_path = output_directory / metadata["path"] / "index.html"
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(document, encoding="utf-8")
+
+
+def copy_assets(output_directory: Path) -> None:
+    for filename in STATIC_ASSETS:
+        shutil.copyfile(SOURCE_DIRECTORY / filename, output_directory / filename)
+
+
+def write_crawler_files(config: dict, output_directory: Path) -> None:
+    robots = "User-agent: *\nAllow: /\n\nSitemap: " + config["site_url"] + "sitemap.xml\n"
+    (output_directory / "robots.txt").write_text(robots, encoding="utf-8")
+
+    ElementTree.register_namespace("", SITEMAP_NAMESPACE)
+    ElementTree.register_namespace("xhtml", XHTML_NAMESPACE)
+    root = ElementTree.Element(f"{{{SITEMAP_NAMESPACE}}}urlset")
+    for metadata in config["locales"].values():
+        entry = ElementTree.SubElement(root, f"{{{SITEMAP_NAMESPACE}}}url")
+        location = ElementTree.SubElement(entry, f"{{{SITEMAP_NAMESPACE}}}loc")
+        location.text = config["site_url"] + metadata["path"]
+        for language, url in language_urls(config).items():
+            ElementTree.SubElement(entry, f"{{{XHTML_NAMESPACE}}}link", {
+                "rel": "alternate",
+                "hreflang": language,
+                "href": url,
+            })
+    ElementTree.indent(root, space="  ")
+    ElementTree.ElementTree(root).write(
+        output_directory / "sitemap.xml", encoding="utf-8", xml_declaration=True
+    )
+
+
+def package_site(output_directory: Path, archive_path: Path) -> None:
+    with zipfile.ZipFile(archive_path, "w", zipfile.ZIP_DEFLATED) as archive:
+        for path in sorted(output_directory.rglob("*")):
+            if path.is_file():
+                archive.write(path, path.relative_to(output_directory))
+
+
+def publish_artifacts(artifacts: list, backup_directory: Path) -> None:
+    """Replace completed artifacts, restoring previous files if a move fails."""
+    backup_directory.mkdir()
+    backups = []
+    published = []
+    try:
+        for index, (staged_path, destination) in enumerate(artifacts):
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            if destination.exists() or destination.is_symlink():
+                backup = backup_directory / str(index)
+                destination.replace(backup)
+                backups.append((backup, destination))
+            staged_path.replace(destination)
+            published.append(destination)
+    except BaseException:
+        for destination in reversed(published):
+            if destination.is_dir() and not destination.is_symlink():
+                shutil.rmtree(destination)
+            else:
+                destination.unlink()
+        for backup, destination in reversed(backups):
+            backup.replace(destination)
+        raise
+
+
+def build_site(config: dict) -> None:
+    """Prepare a fresh build before changing any previously generated output."""
+    staging_directory = Path(tempfile.mkdtemp(prefix=".waymark-build-", dir=PROJECT_ROOT))
+    preserve_staging = False
+    try:
+        output_directory = staging_directory / "dist"
+        output_directory.mkdir()
+        archive_path = staging_directory / ARCHIVE_PATH.name
+        build_pages(config, output_directory)
+        copy_assets(output_directory)
+        write_crawler_files(config, output_directory)
+        package_site(output_directory, archive_path)
+
+        artifacts = [(output_directory, OUTPUT_DIRECTORY), (archive_path, ARCHIVE_PATH)]
+        extras_directory = staging_directory / "deployment-extras"
+        extras_directory.mkdir()
+        for filename in ("robots.txt", "sitemap.xml"):
+            staged_file = extras_directory / filename
+            shutil.copyfile(output_directory / filename, staged_file)
+            artifacts.append((staged_file, PROJECT_ROOT / "deployment-extras" / filename))
+
+        # Keep recovery files if publication or its rollback encounters an OS error.
+        preserve_staging = True
+        try:
+            publish_artifacts(artifacts, staging_directory / "backups")
+        except Exception as error:
+            raise OSError(
+                "Could not publish the build. "
+                f"Recovery files remain in {staging_directory}: {error}"
+            ) from error
+        preserve_staging = False
+    finally:
+        if not preserve_staging:
+            shutil.rmtree(staging_directory)
+
+
+def main() -> int:
+    try:
+        build_site(load_config())
+    except (OSError, ValueError, KeyError) as error:
+        print(f"Build failed: {error}", file=sys.stderr)
+        return 1
+    print("Built RU, EN and KK pages, shared assets, crawler files and production ZIP.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

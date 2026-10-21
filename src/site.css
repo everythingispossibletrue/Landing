@@ -1712,35 +1712,6 @@ footer a {
   translate: -50% 0;
 }
 
-.hero-sticker {
-  position: absolute;
-  z-index: 2;
-  top: 11%;
-  left: 8%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 124px;
-  height: 124px;
-  border-radius: 50%;
-  background: var(--sun);
-  box-shadow: 0 12px 28px #0b213826;
-  color: var(--navy);
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.2;
-  text-align: center;
-  rotate: -10deg;
-}
-
-.hero-sticker strong {
-  font-size: 40px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  line-height: 1;
-}
-
 .signature {
   position: absolute;
   z-index: 2;
@@ -1804,16 +1775,6 @@ footer a {
   .hero {
     gap: 36px;
   }
-
-  .hero-sticker {
-    width: 104px;
-    height: 104px;
-    font-size: 12px;
-  }
-
-  .hero-sticker strong {
-    font-size: 32px;
-  }
 }
 
 @media (max-width: 960px) {
@@ -1847,11 +1808,6 @@ footer a {
     left: auto;
     width: 112px;
     translate: none;
-  }
-
-  .hero-sticker {
-    top: 22%;
-    left: 5%;
   }
 
   .signature {
@@ -1905,16 +1861,6 @@ footer a {
 
   .hero-assurance {
     margin-top: 24px;
-  }
-
-  .hero-sticker {
-    width: 86px;
-    height: 86px;
-    font-size: 11px;
-  }
-
-  .hero-sticker strong {
-    font-size: 26px;
   }
 
   .signature {

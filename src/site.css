@@ -600,31 +600,16 @@ details[open] > summary .plus {
   font-weight: 400;
 }
 
-.expertise-side {
-  display: grid;
-  gap: 20px;
-  min-width: 0;
+/* Consultant background */
+
+.credentials-section h2 {
+  margin-bottom: 34px;
 }
 
 .credentials {
-  padding: 8px 28px;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 10px 30px #12334f12;
-}
-
-.credentials-label {
-  display: block;
-  padding: 18px 0 4px;
-  color: var(--blue);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 1.6;
-  text-transform: uppercase;
-}
-
-.credentials ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -632,65 +617,68 @@ details[open] > summary .plus {
 
 .credentials li {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 18px 0;
-  border-top: 1px solid #dbe5ec;
-}
-
-.credentials li:first-child {
-  border-top: 0;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  padding: 26px;
+  border: 1px solid var(--dark-line);
+  border-radius: 12px;
+  background: var(--card);
 }
 
 .credential-icon {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
-  border-radius: 12px;
-  background: #e3f3fb;
-  color: var(--blue);
+  border-radius: 14px;
+  background: #a6def71f;
+  color: var(--sky);
 }
 
 .credential-icon .site-icon {
-  width: 21px;
-  height: 21px;
-  stroke-width: 1.8;
+  width: 24px;
+  height: 24px;
+  stroke-width: 1.7;
 }
 
 .credentials p {
   margin: 0;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.65;
+  color: var(--on-dark);
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 .credentials strong {
-  color: var(--ink);
+  color: #fff;
   font-weight: 600;
 }
 
-.expertise-side .expert-quote blockquote {
-  font-size: 20px;
+@media (max-width: 1100px) {
+  .credentials {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 680px) {
-  .credentials {
-    padding: 4px 20px;
+  .credentials-section h2 {
+    margin-bottom: 26px;
   }
 
-  .credentials li {
+  .credentials {
+    grid-template-columns: minmax(0, 1fr);
     gap: 14px;
   }
 
-  .credential-icon {
-    width: 38px;
-    height: 38px;
+  .credentials li {
+    gap: 16px;
+    padding: 22px;
   }
 
-  .expertise-side .expert-quote blockquote {
-    font-size: 18px;
+  .credential-icon {
+    width: 44px;
+    height: 44px;
   }
 }
 

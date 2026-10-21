@@ -217,6 +217,12 @@
         if (section.getBoundingClientRect().top <= 150) currentSectionId = section.id;
       });
 
+      // An open tab with its own menu link, such as the business services, marks its section.
+      const openPanel = document
+        .getElementById(currentSectionId)
+        ?.querySelector("[data-tab-panel]:not([hidden])");
+      if (openPanel && navigationTargets.has(`#${openPanel.id}`)) currentSectionId = openPanel.id;
+
       navigationLinks.forEach((link) => {
         const isCurrentSection = link.hash === `#${currentSectionId}`;
         link.classList.toggle("current", isCurrentSection);
@@ -245,21 +251,130 @@
     return scheduleScrollUpdate;
   }
 
-  function scrollToInitialAnchor() {
-    if (!window.location.hash) return;
+  function setupServiceTabs(onChange) {
+    const tabList = document.querySelector("[data-service-tabs]");
+    const tabs = Array.from(tabList?.querySelectorAll("[data-tab-target]") ?? []);
+    const panels = tabs.map((tab) => document.getElementById(tab.dataset.tabTarget));
+    if (!tabs.length || panels.includes(null)) return () => {};
 
-    const fragment = window.location.hash.slice(1);
-    let targetId;
+    // Without JavaScript the tabs stay plain links and both panels remain visible.
+    tabList.setAttribute("role", "tablist");
+    tabList.setAttribute("aria-label", tabList.dataset.tabsLabel);
+    tabs.forEach((tab, index) => {
+      tab.setAttribute("role", "tab");
+      tab.setAttribute("aria-controls", panels[index].id);
+      panels[index].setAttribute("role", "tabpanel");
+      panels[index].setAttribute("aria-labelledby", tab.id);
+    });
 
-    try {
-      targetId = decodeURIComponent(fragment);
-    } catch {
-      // A malformed URL fragment must not prevent the other controls from working.
-      targetId = fragment;
+    function selectTab(selectedIndex) {
+      tabs.forEach((tab, index) => {
+        const isSelected = index === selectedIndex;
+        tab.setAttribute("aria-selected", String(isSelected));
+        tab.tabIndex = isSelected ? 0 : -1;
+        panels[index].hidden = !isSelected;
+      });
+      onChange();
     }
 
-    const target = document.getElementById(targetId);
+    tabList.addEventListener("click", (event) => {
+      const tab = event.target.closest("[data-tab-target]");
+      if (!tab) return;
+
+      // Switch in place instead of jumping to the panel anchor.
+      event.preventDefault();
+      selectTab(tabs.indexOf(tab));
+    });
+
+    tabList.addEventListener("keydown", (event) => {
+      const currentIndex = tabs.indexOf(event.target);
+      if (currentIndex === -1) return;
+
+      if (event.key === " ") {
+        event.preventDefault();
+        selectTab(currentIndex);
+        return;
+      }
+
+      const lastIndex = tabs.length - 1;
+      const nextIndex = {
+        ArrowLeft: currentIndex === 0 ? lastIndex : currentIndex - 1,
+        ArrowRight: currentIndex === lastIndex ? 0 : currentIndex + 1,
+        Home: 0,
+        End: lastIndex,
+      }[event.key];
+      if (nextIndex === undefined) return;
+
+      event.preventDefault();
+      selectTab(nextIndex);
+      tabs[nextIndex].focus();
+    });
+
+    selectTab(0);
+
+    return function revealTarget(target) {
+      const index = panels.findIndex((panel) => panel.contains(target));
+      if (index !== -1 && panels[index].hidden) selectTab(index);
+    };
+  }
+
+  function setupReviewCarousel() {
+    const carousel = document.querySelector("[data-carousel]");
+    const track = carousel?.querySelector("[data-carousel-track]");
+    const controls = carousel?.querySelector("[data-carousel-controls]");
+    const previousButton = controls?.querySelector("[data-carousel-previous]");
+    const nextButton = controls?.querySelector("[data-carousel-next]");
+    if (!track || !previousButton || !nextButton) return;
+
+    function updateButtons() {
+      const maximumScroll = track.scrollWidth - track.clientWidth;
+      previousButton.disabled = track.scrollLeft <= 1;
+      nextButton.disabled = track.scrollLeft >= maximumScroll - 1;
+    }
+
+    function scrollReviews(direction) {
+      // Scroll snapping settles the track on the nearest card.
+      track.scrollBy({
+        left: direction * track.clientWidth * 0.8,
+        behavior: motionIsEnabled() ? "smooth" : "auto",
+      });
+    }
+
+    previousButton.addEventListener("click", () => scrollReviews(-1));
+    nextButton.addEventListener("click", () => scrollReviews(1));
+    track.addEventListener("scroll", updateButtons, { passive: true });
+    window.addEventListener("resize", updateButtons, { passive: true });
+    controls.hidden = false;
+    updateButtons();
+  }
+
+  function elementForHash(hash) {
+    const fragment = hash.slice(1);
+    if (!fragment) return null;
+
+    try {
+      return document.getElementById(decodeURIComponent(fragment));
+    } catch {
+      // A malformed URL fragment must not prevent the other controls from working.
+      return document.getElementById(fragment);
+    }
+  }
+
+  function revealLinkedTabs(revealTarget) {
+    // Menu and card links, such as "For business", open the tab that holds their target.
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest?.('a[href^="#"]');
+      if (!link || link.closest("[data-service-tabs]")) return;
+
+      const target = elementForHash(link.hash);
+      if (target) revealTarget(target);
+    });
+  }
+
+  function scrollToInitialAnchor(revealTarget) {
+    const target = elementForHash(window.location.hash);
     if (target) {
+      revealTarget(target);
       window.requestAnimationFrame(() => {
         // `auto` otherwise inherits the page's smooth-scroll CSS on first load.
         const root = document.documentElement;
@@ -284,7 +399,10 @@
     document.querySelectorAll("details").forEach((details) => {
       setupAccordionAnimation(details, scheduleScrollUpdate);
     });
-    scrollToInitialAnchor();
+    const revealTarget = setupServiceTabs(scheduleScrollUpdate);
+    revealLinkedTabs(revealTarget);
+    setupReviewCarousel();
+    scrollToInitialAnchor(revealTarget);
     observeMotionPreference(setupHeroAnimation);
   }
 

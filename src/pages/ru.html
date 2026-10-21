@@ -2,12 +2,38 @@
 <div id="site">
   <a class="skip-link" href="#main-content">Перейти к содержимому</a>
   <header>
-    <a class="brand-symbol" href="#top" aria-label="На главную">
-      <svg viewBox="0 0 220 220" aria-hidden="true" focusable="false">
-        <rect width="220" height="220" rx="54" fill="#102b4c" />
-        <rect x="83" y="59" width="97" height="40" rx="20" fill="#79c6ed" />
-        <rect x="39" y="123" width="97" height="40" rx="20" fill="#fff" />
+    <a class="brand" href="#top" aria-label="Дарья Хамидуллина — на главную">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <rect width="48" height="48" rx="14" fill="#a6def7" />
+        <path
+          class="brand-route"
+          d="M10 40c0-8 8-9 14-11s14-4 14-12"
+          pathLength="1"
+          fill="none"
+          stroke="#0b2138"
+          stroke-width="7"
+          stroke-linecap="round"
+        />
+        <g class="brand-lane">
+          <path
+            d="M10 40c0-8 8-9 14-11s14-4 14-12"
+            fill="none"
+            stroke="#a6def7"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-dasharray="2.4 3"
+          />
+        </g>
+        <path
+          class="brand-star"
+          d="M38 3.5l1.9 4.6 4.6 1.9-4.6 1.9L38 16.5l-1.9-4.6L31.5 10l4.6-1.9z"
+          fill="#f46f4f"
+        />
       </svg>
+      <span class="brand-name" aria-hidden="true">
+        <strong>Дарья Хамидуллина</strong>
+        <small>Карьера · HR</small>
+      </span>
     </a>
     <nav id="primary-navigation" aria-label="Основная навигация">
       <a href="#audience">Для кого</a>
@@ -15,6 +41,7 @@
       <a href="#services">Услуги</a>
       <a href="#business">Для бизнеса</a>
       <a href="#process">Как работаем</a>
+      <a href="#reviews">Отзывы</a>
       <a href="#faq">Вопросы</a>
     </nav>
     <div class="header-right">
@@ -91,14 +118,13 @@
         </p>
         <div class="hero-actions">
           <a
-            class="button telegram-cta"
+            class="hero-cta telegram-cta"
             href="${telegram_hero}"
             target="_blank"
             rel="noopener"
             data-cta="hero"
           >
-            Разобрать мою ситуацию
-            <span>
+            <span class="hero-cta-icon">
               <svg
                 class="contact-brand"
                 aria-hidden="true"
@@ -113,6 +139,24 @@
                 />
               </svg>
             </span>
+            <span class="hero-cta-label">Разобрать мою ситуацию</span>
+            <svg
+              class="site-icon hero-cta-arrow"
+              aria-hidden="true"
+              focusable="false"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
           </a>
           <a class="text-link" href="#services">Посмотреть услуги</a>
         </div>
@@ -183,25 +227,60 @@
             </span>
           </div>
         </div>
-        <div class="signature">
-          <span class="signature-icon">DK</span>
-          <div>
-            <strong>Дарья Хамидуллина</strong>
-            <small>Карьерный консультант · HR-эксперт</small>
-          </div>
-        </div>
       </div>
       <div class="hero-art">
-        <img
-          src="${asset_prefix}hero.jpg"
-          alt=""
-          width="1122"
-          height="1402"
-          fetchpriority="high"
-          decoding="async"
-        />
-        <div class="art-bottom">
-          <span>Найдите своё направление. Сделайте следующий шаг.</span>
+        <div class="hero-panel">
+          <img
+            class="hero-portrait"
+            src="${asset_prefix}portrait.webp"
+            alt="Дарья Хамидуллина — карьерный консультант и HR-эксперт"
+            width="946"
+            height="1120"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+        <svg class="hero-sparkles" viewBox="0 0 132 44" aria-hidden="true" focusable="false">
+          <path
+            d="M20 4C20 18.76 16.76 22 2 22C16.76 22 20 25.24 20 40C20 25.24 23.24 22 38 22C23.24 22 20 18.76 20 4Z"
+          />
+          <path
+            d="M66 2C66 18.4 62.4 22 46 22C62.4 22 66 25.6 66 42C66 25.6 69.6 22 86 22C69.6 22 66 18.4 66 2Z"
+          />
+          <path
+            d="M112 4C112 18.76 108.76 22 94 22C108.76 22 112 25.24 112 40C112 25.24 115.24 22 130 22C115.24 22 112 18.76 112 4Z"
+          />
+        </svg>
+        <span class="hero-sticker" aria-hidden="true">
+          <strong>14</strong>
+          лет в HR
+        </span>
+        <div class="signature">
+          <span class="signature-copy">
+            <strong>Дарья Хамидуллина</strong>
+            <small>Карьерный консультант · HR-эксперт</small>
+          </span>
+          <a
+            class="signature-linkedin"
+            href="https://www.linkedin.com/in/darya-khamidullina-8111bb60/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Профиль Дарьи Хамидуллиной в LinkedIn"
+          >
+            <svg
+              class="contact-brand"
+              aria-hidden="true"
+              focusable="false"
+              fill="currentColor"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+          </a>
         </div>
       </div>
     </section>
@@ -609,310 +688,407 @@
           задачи, которую важно решить сейчас.
         </p>
       </div>
-      <div class="offers-grid">
-        <article class="offer offer-start" id="service-0">
-          <div class="offer-top">
-            <span class="offer-icon">
-              <svg
-                class="site-icon"
-                aria-hidden="true"
-                focusable="false"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <path
-                  d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"
-                />
-              </svg>
-            </span>
-            <span class="offer-format">Для первого шага</span>
-          </div>
-          <h3>Карьерная консультация</h3>
-          <p class="offer-need">Нужен ясный ответ: куда двигаться и что изменить.</p>
-          <ul class="offer-facts">
-            <li>Разбор цели, позиционирования и достижений</li>
-            <li>Письменный план приоритетных действий</li>
-          </ul>
-          <div class="offer-bottom">
-            <div class="offer-cost">
-              <span>Стоимость</span>
-              <strong>40 000 ₸</strong>
-            </div>
-            <span class="offer-time">60 минут</span>
-          </div>
-          <a
-            class="offer-cta"
-            href="${telegram_service_0}"
-            target="_blank"
-            rel="noopener"
-            data-cta="service-0"
+      <div class="service-tabs" data-service-tabs data-tabs-label="Для кого услуги">
+        <a
+          class="service-tab"
+          id="service-tab-career"
+          href="#career-services"
+          data-tab-target="career-services"
+        >
+          <svg
+            class="site-icon"
+            aria-hidden="true"
+            focusable="false"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           >
-            Начать с консультации
-            <svg
-              class="contact-brand"
-              aria-hidden="true"
-              focusable="false"
-              fill="currentColor"
-              role="img"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
-              />
-            </svg>
-          </a>
-        </article>
-        <article class="offer" id="service-1">
-          <div class="offer-top">
-            <span class="offer-icon">
-              <svg
-                class="site-icon"
-                aria-hidden="true"
-                focusable="false"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
-                />
-                <path d="M14 2v5a1 1 0 0 0 1 1h5" />
-                <circle cx="11.5" cy="14.5" r="2.5" />
-                <path d="M13.3 16.3 15 18" />
-              </svg>
-            </span>
-            <span class="offer-format">Аудит и правки</span>
-          </div>
-          <h3>Резюме и LinkedIn</h3>
-          <p class="offer-need">Опыт есть, а приглашений на интервью мало.</p>
-          <ul class="offer-facts">
-            <li>Аудит структуры, ключевых слов и LinkedIn</li>
-            <li>Описание результатов и документ с правками</li>
-          </ul>
-          <div class="offer-bottom">
-            <div class="offer-cost">
-              <span>Стоимость</span>
-              <strong>25 000 ₸</strong>
-            </div>
-          </div>
-          <a
-            class="offer-cta"
-            href="${telegram_service_1}"
-            target="_blank"
-            rel="noopener"
-            data-cta="service-1"
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          Для специалистов
+        </a>
+        <a
+          class="service-tab"
+          id="service-tab-business"
+          href="#business"
+          data-tab-target="business"
+        >
+          <svg
+            class="site-icon"
+            aria-hidden="true"
+            focusable="false"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           >
-            Разобрать резюме
-            <svg
-              class="contact-brand"
-              aria-hidden="true"
-              focusable="false"
-              fill="currentColor"
-              role="img"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+            <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
+            <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+            <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
+            <path d="M10 6h4" />
+            <path d="M10 10h4" />
+            <path d="M10 14h4" />
+            <path d="M10 18h4" />
+          </svg>
+          Для бизнеса
+        </a>
+      </div>
+      <div class="service-panel" id="career-services" data-tab-panel>
+        <div class="offers-grid">
+          <article class="offer offer-start" id="service-0">
+            <div class="offer-top">
+              <span class="offer-icon">
+                <svg
+                  class="site-icon"
+                  aria-hidden="true"
+                  focusable="false"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path
+                    d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"
+                  />
+                </svg>
+              </span>
+              <span class="offer-format">Для первого шага</span>
+            </div>
+            <h3>Карьерная консультация</h3>
+            <p class="offer-need">Нужен ясный ответ: куда двигаться и что изменить.</p>
+            <ul class="offer-facts">
+              <li>Разбор цели, позиционирования и достижений</li>
+              <li>Письменный план приоритетных действий</li>
+            </ul>
+            <div class="offer-bottom">
+              <div class="offer-cost">
+                <span>Стоимость</span>
+                <strong>40 000 ₸</strong>
+              </div>
+              <span class="offer-time">60 минут</span>
+            </div>
+            <a
+              class="offer-cta"
+              href="${telegram_service_0}"
+              target="_blank"
+              rel="noopener"
+              data-cta="service-0"
             >
-              <path
-                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
-              />
-            </svg>
-          </a>
-        </article>
-        <article class="offer" id="service-2">
-          <div class="offer-top">
-            <span class="offer-icon">
+              Начать с консультации
               <svg
-                class="site-icon"
+                class="contact-brand"
                 aria-hidden="true"
                 focusable="false"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                fill="currentColor"
+                role="img"
                 viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"
+                  d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
                 />
+              </svg>
+            </a>
+          </article>
+          <article class="offer" id="service-1">
+            <div class="offer-top">
+              <span class="offer-icon">
+                <svg
+                  class="site-icon"
+                  aria-hidden="true"
+                  focusable="false"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+                  />
+                  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+                  <circle cx="11.5" cy="14.5" r="2.5" />
+                  <path d="M13.3 16.3 15 18" />
+                </svg>
+              </span>
+              <span class="offer-format">Аудит и правки</span>
+            </div>
+            <h3>Резюме и LinkedIn</h3>
+            <p class="offer-need">Опыт есть, а приглашений на интервью мало.</p>
+            <ul class="offer-facts">
+              <li>Аудит структуры, ключевых слов и LinkedIn</li>
+              <li>Описание результатов и документ с правками</li>
+            </ul>
+            <div class="offer-bottom">
+              <div class="offer-cost">
+                <span>Стоимость</span>
+                <strong>25 000 ₸</strong>
+              </div>
+            </div>
+            <a
+              class="offer-cta"
+              href="${telegram_service_1}"
+              target="_blank"
+              rel="noopener"
+              data-cta="service-1"
+            >
+              Разобрать резюме
+              <svg
+                class="contact-brand"
+                aria-hidden="true"
+                focusable="false"
+                fill="currentColor"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
-                  d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"
+                  d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
                 />
               </svg>
-            </span>
-            <span class="offer-format">Тренировочное интервью</span>
-          </div>
-          <h3>Подготовка к интервью</h3>
-          <p class="offer-need">Важно уверенно рассказать о себе и обсудить условия.</p>
-          <ul class="offer-facts">
-            <li>Тренировка самопрезентации и сложных вопросов</li>
-            <li>Обратная связь и стратегия переговоров об условиях</li>
-          </ul>
-          <div class="offer-bottom">
-            <div class="offer-cost">
-              <span>Стоимость</span>
-              <strong>30 000 ₸</strong>
+            </a>
+          </article>
+          <article class="offer" id="service-2">
+            <div class="offer-top">
+              <span class="offer-icon">
+                <svg
+                  class="site-icon"
+                  aria-hidden="true"
+                  focusable="false"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"
+                  />
+                  <path
+                    d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"
+                  />
+                </svg>
+              </span>
+              <span class="offer-format">Тренировочное интервью</span>
             </div>
-          </div>
-          <a
-            class="offer-cta"
-            href="${telegram_service_2}"
-            target="_blank"
-            rel="noopener"
-            data-cta="service-2"
-          >
-            Подготовиться к интервью
-            <svg
-              class="contact-brand"
-              aria-hidden="true"
-              focusable="false"
-              fill="currentColor"
-              role="img"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+            <h3>Подготовка к интервью</h3>
+            <p class="offer-need">Важно уверенно рассказать о себе и обсудить условия.</p>
+            <ul class="offer-facts">
+              <li>Тренировка самопрезентации и сложных вопросов</li>
+              <li>Обратная связь и стратегия переговоров об условиях</li>
+            </ul>
+            <div class="offer-bottom">
+              <div class="offer-cost">
+                <span>Стоимость</span>
+                <strong>30 000 ₸</strong>
+              </div>
+            </div>
+            <a
+              class="offer-cta"
+              href="${telegram_service_2}"
+              target="_blank"
+              rel="noopener"
+              data-cta="service-2"
             >
-              <path
-                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
-              />
-            </svg>
-          </a>
-        </article>
-        <article class="offer offer-wide" id="service-3">
-          <div class="offer-top">
-            <span class="offer-icon">
+              Подготовиться к интервью
               <svg
-                class="site-icon"
+                class="contact-brand"
                 aria-hidden="true"
                 focusable="false"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                fill="currentColor"
+                role="img"
                 viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <circle cx="6" cy="19" r="3" />
-                <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" />
-                <circle cx="18" cy="5" r="3" />
+                <path
+                  d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
+                />
               </svg>
-            </span>
-            <span class="offer-format">4 недели</span>
-          </div>
-          <h3>Сопровождение поиска</h3>
-          <p class="offer-need">Нужны регулярная обратная связь и поддержка по ходу поиска.</p>
-          <ul class="offer-facts">
-            <li>Консультация, резюме и еженедельные встречи</li>
-            <li>Тренировочные интервью и поддержка в переписке</li>
-          </ul>
-          <div class="offer-bottom">
-            <div class="offer-cost">
-              <span>Стоимость</span>
-              <strong>100 000 ₸</strong>
+            </a>
+          </article>
+          <article class="offer offer-wide" id="service-3">
+            <div class="offer-top">
+              <span class="offer-icon">
+                <svg
+                  class="site-icon"
+                  aria-hidden="true"
+                  focusable="false"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="6" cy="19" r="3" />
+                  <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" />
+                  <circle cx="18" cy="5" r="3" />
+                </svg>
+              </span>
+              <span class="offer-format">4 недели</span>
             </div>
-          </div>
-          <a
-            class="offer-cta"
-            href="${telegram_service_3}"
-            target="_blank"
-            rel="noopener"
-            data-cta="service-3"
-          >
-            Обсудить сопровождение
-            <svg
-              class="contact-brand"
-              aria-hidden="true"
-              focusable="false"
-              fill="currentColor"
-              role="img"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+            <h3>Сопровождение поиска</h3>
+            <p class="offer-need">Нужны регулярная обратная связь и поддержка по ходу поиска.</p>
+            <ul class="offer-facts">
+              <li>Консультация, резюме и еженедельные встречи</li>
+              <li>Тренировочные интервью и поддержка в переписке</li>
+            </ul>
+            <div class="offer-bottom">
+              <div class="offer-cost">
+                <span>Стоимость</span>
+                <strong>100 000 ₸</strong>
+              </div>
+            </div>
+            <a
+              class="offer-cta"
+              href="${telegram_service_3}"
+              target="_blank"
+              rel="noopener"
+              data-cta="service-3"
             >
-              <path
-                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
-              />
-            </svg>
-          </a>
-        </article>
-        <article class="offer offer-wide" id="service-4">
-          <div class="offer-top">
-            <span class="offer-icon">
+              Обсудить сопровождение
               <svg
-                class="site-icon"
+                class="contact-brand"
                 aria-hidden="true"
                 focusable="false"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                fill="currentColor"
+                role="img"
                 viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <path d="M18 21a8 8 0 0 0-16 0" />
-                <circle cx="10" cy="8" r="5" />
-                <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
+                <path
+                  d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
+                />
               </svg>
-            </span>
-            <span class="offer-format">Объём работы обсуждаем</span>
-          </div>
-          <h3>Консультация для бизнеса</h3>
-          <p class="offer-need">Рост бизнеса упирается в найм, роли или работу команды.</p>
-          <ul class="offer-facts">
-            <li>Диагностика команды, найма и профилей ролей</li>
-            <li>Приоритеты делегирования и план на квартал</li>
-          </ul>
-          <div class="offer-bottom">
-            <div class="offer-cost">
-              <span>Стоимость</span>
-              <strong>Договорная</strong>
+            </a>
+          </article>
+        </div>
+      </div>
+      <div class="service-panel business" id="business" data-tab-panel>
+        <p class="business-lead">
+          <strong>HR-консалтинг, IT-рекрутинг и Executive Search для бизнеса.</strong>
+          Помогаю бизнесу находить нужных людей, выстраивать процессы найма и развивать рекрутеров.
+        </p>
+        <div class="offers-grid business-grid">
+          <article class="offer offer-start offer-business" id="service-4">
+            <div class="offer-top">
+              <span class="offer-icon">
+                <svg
+                  class="site-icon"
+                  aria-hidden="true"
+                  focusable="false"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M18 21a8 8 0 0 0-16 0" />
+                  <circle cx="10" cy="8" r="5" />
+                  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
+                </svg>
+              </span>
+              <span class="offer-format">Объём работы обсуждаем</span>
             </div>
-          </div>
-          <a
-            class="offer-cta"
-            href="${telegram_service_4}"
-            target="_blank"
-            rel="noopener"
-            data-cta="service-4"
-          >
-            Обсудить задачу бизнеса
-            <svg
-              class="contact-brand"
-              aria-hidden="true"
-              focusable="false"
-              fill="currentColor"
-              role="img"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+            <h3>Консультация для бизнеса</h3>
+            <p class="offer-need">Рост бизнеса упирается в найм, роли или работу команды.</p>
+            <ul class="offer-facts">
+              <li>Диагностика команды, найма и профилей ролей</li>
+              <li>Приоритеты делегирования и план на квартал</li>
+            </ul>
+            <div class="offer-bottom">
+              <div class="offer-cost">
+                <span>Стоимость</span>
+                <strong>Договорная</strong>
+              </div>
+            </div>
+            <a
+              class="offer-cta"
+              href="${telegram_service_4}"
+              target="_blank"
+              rel="noopener"
+              data-cta="service-4"
             >
-              <path
-                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
-              />
-            </svg>
-          </a>
-        </article>
+              Обсудить задачу бизнеса
+              <svg
+                class="contact-brand"
+                aria-hidden="true"
+                focusable="false"
+                fill="currentColor"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
+                />
+              </svg>
+            </a>
+          </article>
+          <div class="business-services">
+            <span class="business-services-label">Направления работы</span>
+            <ul class="business-list">
+              <li>
+                <span class="business-number" aria-hidden="true">01</span>
+                <div>
+                  <h3>IT-рекрутинг и Executive Search</h3>
+                  <p>В том числе поиск A-players и AI-native специалистов.</p>
+                </div>
+              </li>
+              <li>
+                <span class="business-number" aria-hidden="true">02</span>
+                <div><h3>Аудит и оптимизация процессов найма</h3></div>
+              </li>
+              <li>
+                <span class="business-number" aria-hidden="true">03</span>
+                <div><h3>Построение рекрутинговой функции с нуля</h3></div>
+              </li>
+              <li>
+                <span class="business-number" aria-hidden="true">04</span>
+                <div><h3>Индивидуальный коучинг IT-рекрутеров</h3></div>
+              </li>
+              <li>
+                <span class="business-number" aria-hidden="true">05</span>
+                <div>
+                  <h3>Подготовка рекрутеров к работе со сложными техническими вакансиями</h3>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="services-help">
         <div>
@@ -967,61 +1143,9 @@
         </div>
       </div>
     </section>
-    <!-- Business services -->
-    <section class="section business" id="business" aria-labelledby="business-title">
-      <span class="kicker">05 / Для бизнеса</span>
-      <div class="business-heading">
-        <h2 id="business-title">
-          HR-консалтинг, IT-рекрутинг
-          <br />
-          и Executive Search для бизнеса
-        </h2>
-        <p>
-          Помогаю бизнесу находить нужных людей, выстраивать процессы найма и развивать рекрутеров.
-        </p>
-      </div>
-      <ul class="business-list">
-        <li>
-          <span class="business-number" aria-hidden="true">01</span>
-          <div>
-            <h3>IT-рекрутинг и Executive Search</h3>
-            <p>В том числе поиск A-players и AI-native специалистов.</p>
-          </div>
-        </li>
-        <li>
-          <span class="business-number" aria-hidden="true">02</span>
-          <div><h3>Аудит и оптимизация процессов найма</h3></div>
-        </li>
-        <li>
-          <span class="business-number" aria-hidden="true">03</span>
-          <div><h3>Построение рекрутинговой функции с нуля</h3></div>
-        </li>
-        <li>
-          <span class="business-number" aria-hidden="true">04</span>
-          <div><h3>Индивидуальный коучинг IT-рекрутеров</h3></div>
-        </li>
-        <li>
-          <span class="business-number" aria-hidden="true">05</span>
-          <div>
-            <h3>Подготовка рекрутеров к работе со сложными техническими вакансиями</h3>
-          </div>
-        </li>
-      </ul>
-      <div class="business-contact">
-        <p>Расскажите о вашей команде и задаче — обсудим подходящий формат работы.</p>
-        <a
-          class="button telegram-cta"
-          href="${telegram_business}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Обсудить задачу бизнеса
-        </a>
-      </div>
-    </section>
     <!-- Working together -->
     <section class="section process" id="process">
-      <span class="kicker">06 / Как работаем</span>
+      <span class="kicker">05 / Как работаем</span>
       <h2>
         Приходите с вопросом.
         <br />
@@ -1205,6 +1329,245 @@
             <p>Понятная последовательность следующих шагов.</p>
           </article>
         </div>
+      </div>
+    </section>
+    <!-- Client reviews: placeholder copy until real reviews are collected -->
+    <section class="section reviews" id="reviews" data-placeholder="reviews" data-carousel>
+      <div class="reviews-heading">
+        <div>
+          <span class="kicker">06 / Отзывы</span>
+          <h2>
+            Что говорят
+            <br />
+            клиенты
+          </h2>
+        </div>
+        <div class="reviews-aside">
+          <p>
+            Специалисты, руководители и компании — о том, что изменилось после совместной работы.
+          </p>
+          <div class="carousel-controls" data-carousel-controls hidden>
+            <button
+              class="carousel-button"
+              type="button"
+              aria-controls="reviews-track"
+              aria-label="Предыдущие отзывы"
+              data-carousel-previous
+            >
+              <svg
+                class="site-icon"
+                aria-hidden="true"
+                focusable="false"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              class="carousel-button"
+              type="button"
+              aria-controls="reviews-track"
+              aria-label="Следующие отзывы"
+              data-carousel-next
+            >
+              <svg
+                class="site-icon"
+                aria-hidden="true"
+                focusable="false"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="reviews-viewport"
+        id="reviews-track"
+        role="region"
+        aria-label="Отзывы клиентов"
+        tabindex="0"
+        data-carousel-track
+      >
+        <ul class="reviews-track">
+          <li class="review-card">
+            <span class="review-service">Карьерная консультация</span>
+            <blockquote>
+              <p>
+                За час разобрали, почему мои отклики оставались без ответа. Ушла с понятным планом и
+                через месяц дошла до финала в двух компаниях.
+              </p>
+            </blockquote>
+            <p class="review-author">
+              <span class="review-avatar" aria-hidden="true">А</span>
+              <span>
+                <strong>Айгерим</strong>
+                <small>Product Manager</small>
+              </span>
+            </p>
+          </li>
+          <li class="review-card">
+            <span class="review-service">Резюме и LinkedIn</span>
+            <blockquote>
+              <p>
+                Резюме переписали вокруг результатов, а не обязанностей. После обновления LinkedIn
+                рекрутеры стали писать первыми.
+              </p>
+            </blockquote>
+            <p class="review-author">
+              <span class="review-avatar" aria-hidden="true">Т</span>
+              <span>
+                <strong>Тимур</strong>
+                <small>Backend-разработчик</small>
+              </span>
+            </p>
+          </li>
+          <li class="review-card">
+            <span class="review-service">Подготовка к интервью</span>
+            <blockquote>
+              <p>
+                Тренировочное интервью оказалось сложнее настоящего. На финале я спокойно отвечала
+                на неудобные вопросы и уверенно обсудила условия.
+              </p>
+            </blockquote>
+            <p class="review-author">
+              <span class="review-avatar" aria-hidden="true">М</span>
+              <span>
+                <strong>Мария</strong>
+                <small>Head of Marketing</small>
+              </span>
+            </p>
+          </li>
+          <li class="review-card">
+            <span class="review-service">Сопровождение поиска</span>
+            <blockquote>
+              <p>
+                Месяц сопровождения задал ритм: еженедельные встречи, разбор откликов, поддержка в
+                переписке. В итоге перешёл из банка в продуктовую компанию.
+              </p>
+            </blockquote>
+            <p class="review-author">
+              <span class="review-avatar" aria-hidden="true">Е</span>
+              <span>
+                <strong>Ержан</strong>
+                <small>Data Analyst</small>
+              </span>
+            </p>
+          </li>
+          <li class="review-card">
+            <span class="review-service">Карьерная консультация</span>
+            <blockquote>
+              <p>
+                Дарья помогла посмотреть на мой опыт глазами работодателя. Наконец-то стало ясно,
+                куда расти дальше.
+              </p>
+            </blockquote>
+            <p class="review-author">
+              <span class="review-avatar" aria-hidden="true">А</span>
+              <span>
+                <strong>Алина</strong>
+                <small>HR Business Partner</small>
+              </span>
+            </p>
+          </li>
+          <li class="review-card">
+            <span class="review-service">Консультация для бизнеса</span>
+            <blockquote>
+              <p>
+                Разобрали процесс найма и нашли, где мы теряли сильных кандидатов. Вакансии стали
+                закрываться заметно быстрее.
+              </p>
+            </blockquote>
+            <p class="review-author">
+              <span class="review-avatar" aria-hidden="true">Д</span>
+              <span>
+                <strong>Дмитрий</strong>
+                <small>CTO, финтех-стартап</small>
+              </span>
+            </p>
+          </li>
+          <li class="review-card">
+            <span class="review-service">Рекрутинг с нуля</span>
+            <blockquote>
+              <p>
+                Вместе выстроили найм с нуля: профили ролей, этапы отбора, шаблоны интервью. Теперь
+                он не держится только на мне.
+              </p>
+            </blockquote>
+            <p class="review-author">
+              <span class="review-avatar" aria-hidden="true">С</span>
+              <span>
+                <strong>Сауле</strong>
+                <small>Основатель digital-агентства</small>
+              </span>
+            </p>
+          </li>
+          <li class="review-card">
+            <span class="review-service">Подготовка к интервью</span>
+            <blockquote>
+              <p>
+                Перестал теряться на вопросе «Расскажите о себе». Самопрезентация стала короткой и
+                убедительной — и я получил оффер.
+              </p>
+            </blockquote>
+            <p class="review-author">
+              <span class="review-avatar" aria-hidden="true">А</span>
+              <span>
+                <strong>Арман</strong>
+                <small>Project Manager</small>
+              </span>
+            </p>
+          </li>
+          <li class="review-card">
+            <span class="review-service">Коучинг рекрутеров</span>
+            <blockquote>
+              <p>
+                Коучинг помог разобраться в технических вакансиях. Теперь говорю с разработчиками на
+                одном языке, и кандидаты чаще доходят до оффера.
+              </p>
+            </blockquote>
+            <p class="review-author">
+              <span class="review-avatar" aria-hidden="true">К</span>
+              <span>
+                <strong>Ксения</strong>
+                <small>IT-рекрутер</small>
+              </span>
+            </p>
+          </li>
+          <li class="review-card">
+            <span class="review-service">Карьерная консультация</span>
+            <blockquote>
+              <p>
+                Пришёл с ощущением потолка, ушёл с конкретным планом перехода на следующую позицию.
+                Всё по делу, без воды.
+              </p>
+            </blockquote>
+            <p class="review-author">
+              <span class="review-avatar" aria-hidden="true">Н</span>
+              <span>
+                <strong>Нурлан</strong>
+                <small>Руководитель отдела продаж</small>
+              </span>
+            </p>
+          </li>
+        </ul>
       </div>
     </section>
     <!-- Frequently asked questions -->
@@ -1426,6 +1789,34 @@
             <small>Можно сразу приложить резюме и описать запрос.</small>
           </span>
         </a>
+        <a
+          class="contact-tile linkedin-tile"
+          href="https://www.linkedin.com/in/darya-khamidullina-8111bb60/"
+          target="_blank"
+          rel="noopener"
+          data-cta="final-linkedin"
+        >
+          <span class="contact-tile-icon">
+            <svg
+              class="contact-brand"
+              aria-hidden="true"
+              focusable="false"
+              fill="currentColor"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+          </span>
+          <span class="contact-tile-copy">
+            <strong>Профиль в LinkedIn</strong>
+            <span class="contact-handle">darya-khamidullina</span>
+            <small>Профессиональный опыт и контакты.</small>
+          </span>
+        </a>
       </div>
       <span class="final-note">Два-три предложения — достаточно для начала.</span>
       <div class="contact-location location-badges">
@@ -1481,6 +1872,73 @@
       <br />
       Карьерная стратегия и HR-консалтинг
     </span>
+    <ul class="footer-contacts" aria-label="Контакты">
+      <li>
+        <a
+          href="https://t.me/DaryaKHnikn"
+          target="_blank"
+          rel="noopener"
+          aria-label="Написать в Telegram"
+        >
+          <svg
+            class="contact-brand"
+            aria-hidden="true"
+            focusable="false"
+            fill="currentColor"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
+            />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.linkedin.com/in/darya-khamidullina-8111bb60/"
+          target="_blank"
+          rel="noopener"
+          aria-label="Профиль Дарьи Хамидуллиной в LinkedIn"
+        >
+          <svg
+            class="contact-brand"
+            aria-hidden="true"
+            focusable="false"
+            fill="currentColor"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+            />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="mailto:darya.kh.alex@gmail.com" aria-label="Написать на почту">
+          <svg
+            class="site-icon"
+            aria-hidden="true"
+            focusable="false"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+          </svg>
+        </a>
+      </li>
+    </ul>
   </footer>
   <a class="back-to-top" href="#top" aria-label="Наверх" title="Наверх" hidden>
     <svg

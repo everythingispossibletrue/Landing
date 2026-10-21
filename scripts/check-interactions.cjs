@@ -172,11 +172,11 @@ test("scroll updates are batched and keep progress, navigation and back-to-top i
   const { document, window } = browser;
   const backToTop = document.querySelector(".back-to-top");
   const audienceLink = document.querySelector('nav a[href="#audience"]');
-  const businessLink = document.querySelector('nav a[href="#business"]');
+  const servicesLink = document.querySelector('nav a[href="#services"]');
 
   assert.equal(backToTop.hidden, true);
   browser.sectionPositions.set("audience", 900);
-  browser.sectionPositions.set("business", 1900);
+  browser.sectionPositions.set("services", 1900);
   browser.setScroll(1000);
   browser.setScroll(1000);
   window.dispatchEvent(new window.Event("resize"));
@@ -186,13 +186,13 @@ test("scroll updates are batched and keep progress, navigation and back-to-top i
   assert.equal(document.querySelector(".progress").style.width, "50%");
   assert.equal(backToTop.hidden, false);
   assert.equal(audienceLink.getAttribute("aria-current"), "location");
-  assert.equal(businessLink.hasAttribute("aria-current"), false);
+  assert.equal(servicesLink.hasAttribute("aria-current"), false);
 
   browser.setScroll(2000);
   browser.flushFrames();
   assert.equal(document.querySelector(".progress").style.width, "100%");
   assert.equal(audienceLink.classList.contains("current"), false);
-  assert.equal(businessLink.getAttribute("aria-current"), "location");
+  assert.equal(servicesLink.getAttribute("aria-current"), "location");
 
   browser.setScroll(0, 1000, 800);
   browser.flushFrames();
@@ -202,6 +202,94 @@ test("scroll updates are batched and keep progress, navigation and back-to-top i
   browser.setScroll(-100, 1000, 3000);
   browser.flushFrames();
   assert.equal(document.querySelector(".progress").style.width, "0%");
+});
+
+test("service tabs switch in place and mark the business menu link", (context) => {
+  const browser = createBrowser(context);
+  const { document, window } = browser;
+  const [careerTab, businessTab] = document.querySelectorAll('[data-service-tabs] [role="tab"]');
+  const careerPanel = document.getElementById("career-services");
+  const businessPanel = document.getElementById("business");
+  const servicesLink = document.querySelector('nav a[href="#services"]');
+  const businessLink = document.querySelector('nav a[href="#business"]');
+
+  assert.equal(document.querySelector("[data-service-tabs]").getAttribute("role"), "tablist");
+  assert.equal(careerTab.getAttribute("aria-selected"), "true");
+  assert.equal(businessPanel.getAttribute("aria-labelledby"), businessTab.id);
+  assert.equal(businessPanel.hidden, true);
+
+  browser.sectionPositions.set("services", 900);
+  browser.setScroll(1000);
+  browser.flushFrames();
+  assert.equal(servicesLink.getAttribute("aria-current"), "location");
+
+  const click = new window.MouseEvent("click", { bubbles: true, cancelable: true });
+  businessTab.dispatchEvent(click);
+  assert.equal(click.defaultPrevented, true);
+  assert.equal(careerPanel.hidden, true);
+  assert.equal(businessPanel.hidden, false);
+  assert.equal(businessTab.tabIndex, 0);
+  assert.equal(careerTab.tabIndex, -1);
+  browser.flushFrames();
+  assert.equal(businessLink.getAttribute("aria-current"), "location");
+  assert.equal(servicesLink.hasAttribute("aria-current"), false);
+
+  businessTab.dispatchEvent(
+    new window.KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true, cancelable: true }),
+  );
+  assert.equal(careerPanel.hidden, false);
+  assert.equal(businessPanel.hidden, true);
+  assert.equal(document.activeElement, careerTab);
+});
+
+test("links and initial anchors open the tab that holds their target", (context) => {
+  const browser = createBrowser(context);
+  const { document, window } = browser;
+  document
+    .querySelector('nav a[href="#business"]')
+    .dispatchEvent(new window.MouseEvent("click", { bubbles: true, cancelable: true }));
+  assert.equal(document.getElementById("business").hidden, false);
+  assert.equal(document.getElementById("career-services").hidden, true);
+
+  const linked = createBrowser(context, { hash: "#service-4" });
+  linked.flushFrames();
+  assert.equal(linked.document.getElementById("business").hidden, false);
+  assert.equal(linked.anchorScrolls[0].id, "service-4");
+});
+
+test("review buttons scroll the carousel and stop at its ends", (context) => {
+  const { document, window } = createBrowser(context);
+  const track = document.querySelector("[data-carousel-track]");
+  const previousButton = document.querySelector("[data-carousel-previous]");
+  const nextButton = document.querySelector("[data-carousel-next]");
+  const scrolls = [];
+  let scrollLeft = 0;
+
+  assert.equal(document.querySelector("[data-carousel-controls]").hidden, false);
+  Object.defineProperties(track, {
+    clientWidth: { value: 1000, configurable: true },
+    scrollWidth: { value: 4000, configurable: true },
+    scrollLeft: { get: () => scrollLeft, configurable: true },
+  });
+  track.scrollBy = (options) => {
+    scrolls.push(options);
+    scrollLeft += options.left;
+    track.dispatchEvent(new window.Event("scroll"));
+  };
+  track.dispatchEvent(new window.Event("scroll"));
+  assert.equal(previousButton.disabled, true);
+  assert.equal(nextButton.disabled, false);
+
+  nextButton.click();
+  assert.equal(scrolls[0].left, 800);
+  assert.equal(scrolls[0].behavior, "smooth");
+  assert.equal(previousButton.disabled, false);
+
+  scrollLeft = 3000;
+  track.dispatchEvent(new window.Event("scroll"));
+  assert.equal(nextButton.disabled, true);
+  previousButton.click();
+  assert.equal(scrolls[1].left, -800);
 });
 
 test("native accordion changes refresh progress without scrolling", (context) => {

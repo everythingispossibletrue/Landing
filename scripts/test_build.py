@@ -84,7 +84,7 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(host_file.read_text(), "Custom host setting")
         with ZipFile(self.archive) as archive:
             self.assertNotIn("retired/index.html", archive.namelist())
-            self.assertEqual(len(archive.namelist()), 9)
+            self.assertEqual(len(archive.namelist()), 10)
         self.assertEqual(list(self.project.glob(".waymark-build-*")), [])
 
     def test_failed_page_render_preserves_previous_build(self):
@@ -163,7 +163,7 @@ class BuildTests(unittest.TestCase):
             seo_checks.check_archive(self.output, self.archive)
         english = (self.output / "languages" / "en" / "index.html").read_text()
         self.assertIn('href="https://example.test/career/languages/en/"', english)
-        self.assertIn('src="../../hero.jpg"', english)
+        self.assertIn('src="../../portrait.webp"', english)
         self.assertIn('data-lang="ru" href="../../"', english)
 
     def test_empty_title_and_indexing_directives_are_detected(self):

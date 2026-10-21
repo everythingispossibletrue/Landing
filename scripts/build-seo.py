@@ -25,7 +25,8 @@ from site_config import (
 )
 from structured_data import build_structured_data
 
-STATIC_ASSETS = ("site.css", "site.js", "hero.jpg", "favicon.svg")
+STATIC_ASSETS = ("site.css", "site.js", "hero.jpg", "portrait.webp", "favicon.svg")
+SAMPLE_REVIEWS_MARKER = 'data-placeholder="reviews"'
 SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9"
 XHTML_NAMESPACE = "http://www.w3.org/1999/xhtml"
 PAGE_PLACEHOLDER = re.compile(r"\$\{(telegram_[^}]*|locale_[^}]*|asset_prefix)\}")
@@ -108,7 +109,7 @@ def build_head(config: dict, language: str, content: str) -> str:
         link_tag(**{
             "rel": "preload",
             "as": "image",
-            "href": asset_prefix + "hero.jpg",
+            "href": asset_prefix + "portrait.webp",
             "fetchpriority": "high",
         }),
         link_tag(rel="stylesheet", href=asset_prefix + "site.css"),
@@ -167,6 +168,15 @@ def build_pages(config: dict, output_directory: Path) -> None:
 def copy_assets(output_directory: Path) -> None:
     for filename in STATIC_ASSETS:
         shutil.copyfile(SOURCE_DIRECTORY / filename, output_directory / filename)
+
+
+def pages_with_sample_reviews() -> list:
+    """Languages whose pages still show placeholder reviews instead of real ones."""
+    return [
+        path.stem
+        for path in sorted((SOURCE_DIRECTORY / "pages").glob("*.html"))
+        if SAMPLE_REVIEWS_MARKER in path.read_text(encoding="utf-8")
+    ]
 
 
 def write_crawler_files(config: dict, output_directory: Path) -> None:
@@ -267,6 +277,14 @@ def main() -> int:
         print(f"Build failed: {error}", file=sys.stderr)
         return 1
     print("Built RU, EN and KK pages, shared assets, crawler files and production ZIP.")
+    sample_pages = pages_with_sample_reviews()
+    if sample_pages:
+        print(
+            "Warning: sample reviews are still shown on the "
+            + ", ".join(language.upper() for language in sample_pages)
+            + " pages. Replace them with real client reviews before making the site public.",
+            file=sys.stderr,
+        )
     return 0
 
 

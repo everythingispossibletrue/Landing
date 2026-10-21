@@ -75,7 +75,9 @@ def build_structured_data(config: dict, language: str, markup: str) -> dict:
                 "url": site_url,
                 "jobTitle": metadata["job_title"],
                 "email": config["email"],
-                "sameAs": [config["telegram_url"]],
+                "sameAs": [
+                    url for url in (config["telegram_url"], config.get("linkedin_url")) if url
+                ],
                 "workLocation": {"@type": "Place", "name": "Almaty, Kazakhstan"},
                 "knowsLanguage": list(config["locales"]),
             },

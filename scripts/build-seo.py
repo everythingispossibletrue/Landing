@@ -26,7 +26,8 @@ from site_config import (
 from structured_data import build_structured_data
 
 STATIC_ASSETS = ("site.css", "site.js", "hero.jpg", "portrait.webp", "favicon.svg")
-SAMPLE_REVIEWS_MARKER = 'data-placeholder="reviews"'
+# Opening tag of a placeholder reviews section that is not hidden.
+VISIBLE_SAMPLE_REVIEWS = re.compile(r'<section\b(?![^>]*\bhidden\b)[^>]*data-placeholder="reviews"[^>]*>')
 SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9"
 XHTML_NAMESPACE = "http://www.w3.org/1999/xhtml"
 PAGE_PLACEHOLDER = re.compile(r"\$\{(telegram_[^}]*|locale_[^}]*|asset_prefix)\}")
@@ -175,7 +176,7 @@ def pages_with_sample_reviews() -> list:
     return [
         path.stem
         for path in sorted((SOURCE_DIRECTORY / "pages").glob("*.html"))
-        if SAMPLE_REVIEWS_MARKER in path.read_text(encoding="utf-8")
+        if VISIBLE_SAMPLE_REVIEWS.search(path.read_text(encoding="utf-8"))
     ]
 
 

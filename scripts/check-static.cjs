@@ -85,3 +85,30 @@ test("site has no build dependency or redirect to dist", () => {
   for (const locale of ["", "en/", "kk/"]) assert.ok(sitemap.includes(base + locale));
   new vm.Script(readFileSync(path.join(root, "site.js"), "utf8"));
 });
+
+test("old dist links redirect to static pages, preserving language, query and anchor", () => {
+  const markup = readFileSync(path.join(root, "404.html"), "utf8");
+  const script = markup.match(/<script>([\s\S]*?)<\/script>/)[1];
+  for (const [oldPath, newPath] of [
+    ["dist/", ""],
+    ["dist", ""],
+    ["dist/index.html", ""],
+    ["dist/en/", "en/"],
+    ["dist/kk/index.html", "kk/"],
+    ["missing-page/", null],
+  ]) {
+    let actual;
+    vm.runInNewContext(script, {
+      URL,
+      window: {
+        location: {
+          href: base + oldPath + "?lang=en#services",
+          replace: (url) => {
+            actual = url;
+          },
+        },
+      },
+    });
+    assert.equal(actual, newPath === null ? undefined : base + newPath + "?lang=en#services");
+  }
+});

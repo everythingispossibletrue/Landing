@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Страница не найдена — Дарья Хамидуллина</title>
+    <script>
+      // Old bookmarks used /Landing/dist/. The site now lives at /Landing/.
+      const current = new URL(window.location.href);
+      const legacy = current.pathname.match(/\/dist(?:\/(en|kk))?(?:\/index\.html)?\/?$/);
+      if (legacy) {
+        current.pathname =
+          current.pathname.slice(0, legacy.index) + "/" + (legacy[1] ? legacy[1] + "/" : "");
+        window.location.replace(current.href);
+      }
+    </script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: #0b2138;
+        color: #f8fbff;
+        font:
+          16px/1.65 Arial,
+          Helvetica,
+          sans-serif;
+      }
+      main {
+        width: min(100%, 560px);
+      }
+      small {
+        color: #a6def7;
+        letter-spacing: 2px;
+      }
+      h1 {
+        font-size: clamp(30px, 6vw, 44px);
+        line-height: 1.2;
+        font-weight: 500;
+      }
+      p {
+        color: #bed0df;
+      }
+      a {
+        display: inline-block;
+        margin-top: 16px;
+        padding: 14px 22px;
+        border-radius: 6px;
+        background: #a6def7;
+        color: #142c41;
+        text-decoration: none;
+      }
+      a:focus-visible {
+        outline: 3px solid white;
+        outline-offset: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <small>404</small>
+      <h1>Эта страница переехала или не существует.</h1>
+      <p>Главная страница, услуги и контакты доступны по ссылке ниже.</p>
+      <a href="https://everythingispossibletrue.github.io/Landing/">Открыть главную</a>
+    </main>
+  </body>
+</html>

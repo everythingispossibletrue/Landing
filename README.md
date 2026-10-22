@@ -14,7 +14,7 @@
 | `src/site.js` | Меню, прокрутка, анимации, вкладки услуг, карусель отзывов и поддержка старых языковых ссылок |
 | `src/site-config.json` | Адрес сайта, контакты и SEO-метаданные |
 | `src/telegram-messages.json` | Готовые сообщения для кнопок Telegram |
-| `src/portrait.jpg` | Фото Дарьи для первого экрана |
+| `src/portrait-cutout.png` | Фото Дарьи с прозрачным фоном для первого экрана |
 | `src/hero.jpg`, `src/favicon.svg` | Картинка для превью в соцсетях и иконка сайта |
 | `scripts/build-seo.py` | Сборка страниц, SEO-файлов и архива |
 | `scripts/structured_data.py` | Schema.org-разметка из видимых карточек услуг |

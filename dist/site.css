@@ -1941,7 +1941,7 @@ footer a {
   inset: 0;
   overflow: hidden;
   border-bottom-left-radius: clamp(180px, 20vw, 300px);
-  background: var(--sun);
+  background: var(--coral);
 }
 
 .hero-panel::before {
@@ -1952,7 +1952,7 @@ footer a {
   width: min(84%, 560px);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #ffed9e;
+  background: #f9bda9;
   translate: -50% 0;
 }
 

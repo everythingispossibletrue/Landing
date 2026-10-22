@@ -6,7 +6,7 @@ const vm = require("node:vm");
 const { JSDOM } = require("jsdom");
 
 const projectRoot = path.resolve(__dirname, "..");
-const siteScript = readFileSync(path.join(projectRoot, "src/site.js"), "utf8");
+const siteScript = readFileSync(path.join(projectRoot, "site.js"), "utf8");
 
 // jsdom supplies real DOM events; geometry and animation completion are controlled
 // because they require a rendering engine in a browser.
@@ -16,7 +16,7 @@ function createBrowser(
 ) {
   const pagePath = language === "ru" ? "index.html" : `${language}/index.html`;
   const url = `https://example.com/${language === "ru" ? "" : `${language}/`}${query}${hash}`;
-  const html = readFileSync(path.join(projectRoot, "dist", pagePath), "utf8");
+  const html = readFileSync(path.join(projectRoot, pagePath), "utf8");
   const dom = new JSDOM(html, { url });
   const { window } = dom;
   const { document } = window;

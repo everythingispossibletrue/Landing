@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://everythingispossibletrue.github.io/Landing/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://everythingispossibletrue.github.io/Landing/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://everythingispossibletrue.github.io/Landing/en/" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://everythingispossibletrue.github.io/Landing/kk/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://everythingispossibletrue.github.io/Landing/" />
+  </url>
+  <url>
+    <loc>https://everythingispossibletrue.github.io/Landing/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://everythingispossibletrue.github.io/Landing/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://everythingispossibletrue.github.io/Landing/en/" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://everythingispossibletrue.github.io/Landing/kk/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://everythingispossibletrue.github.io/Landing/" />
+  </url>
+  <url>
+    <loc>https://everythingispossibletrue.github.io/Landing/kk/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://everythingispossibletrue.github.io/Landing/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://everythingispossibletrue.github.io/Landing/en/" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://everythingispossibletrue.github.io/Landing/kk/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://everythingispossibletrue.github.io/Landing/" />
+  </url>
+</urlset>

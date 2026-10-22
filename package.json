@@ -4,13 +4,10 @@
   "private": true,
   "description": "Static multilingual career and HR consulting website.",
   "scripts": {
-    "build": "python3 scripts/build-seo.py",
-    "check": "python3 scripts/check-seo.py",
-    "test": "npm run check && npm run test:build && node --test scripts/check-*.cjs",
-    "format": "prettier --write src scripts/*.cjs index.html .prettierrc.json package.json",
-    "format:check": "prettier --check src scripts/*.cjs index.html .prettierrc.json package.json",
-    "test:build": "python3 -m unittest discover -s scripts -p \"test_*.py\"",
-    "pretest": "npm run build"
+    "check": "node --test scripts/check-*.cjs",
+    "test": "npm run check",
+    "format": "prettier --write index.html en/index.html kk/index.html site.css site.js scripts/*.cjs package.json",
+    "format:check": "prettier --check index.html en/index.html kk/index.html site.css site.js scripts/*.cjs package.json"
   },
   "engines": {
     "node": "^22.22.2 || ^24.15.0 || >=26.0.0"

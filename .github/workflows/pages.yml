@@ -1,8 +1,6 @@
 name: Deploy to GitHub Pages
 
-# Publishes the contents of dist/ at the site root, so the page opens at
-# https://everythingispossibletrue.github.io/Landing/ instead of .../Landing/dist/.
-# Requires Settings → Pages → Build and deployment → Source: "GitHub Actions".
+# Publishes the static files directly from the repository root. No build step.
 
 on:
   push:
@@ -28,31 +26,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build site
-        run: python3 scripts/build-seo.py
-
-      - name: Keep old /dist/ links working
-        run: |
-          mkdir -p dist/dist
-          cat > dist/dist/index.html <<'HTML'
-          <!doctype html>
-          <meta charset="utf-8" />
-          <title>Дарья Хамидуллина</title>
-          <link rel="canonical" href="../" />
-          <meta http-equiv="refresh" content="0; url=../" />
-          <script>
-            location.replace("../" + location.search + location.hash);
-          </script>
-          <a href="../">Открыть сайт</a>
-          HTML
-
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: .
 
       - name: Deploy
         id: deployment

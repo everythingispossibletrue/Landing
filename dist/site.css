@@ -759,7 +759,7 @@ details[open] > summary .plus {
 
 @media (min-width: 961px) {
   .experience-demo {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
   }
 
   .demo-before,
@@ -773,12 +773,12 @@ details[open] > summary .plus {
   }
 
   .demo-before > p {
-    max-width: 19ch;
+    max-width: none;
     margin-top: 28px;
-    font-size: clamp(26px, 2.4vw, 34px);
+    font-size: clamp(18px, 1.7vw, 24px);
     line-height: 1.35;
     letter-spacing: -0.5px;
-    text-wrap: balance;
+    white-space: nowrap;
   }
 
   .demo-after ol {
@@ -1854,12 +1854,12 @@ footer a {
 
 .hero-portrait {
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: auto;
+  inset: 0;
+  width: 100%;
   max-width: none;
-  height: 90%;
-  translate: -48% 0;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
 }
 
 .hero-sparkles {
@@ -1959,7 +1959,7 @@ footer a {
   }
 
   .hero-portrait {
-    height: 94%;
+    height: 100%;
   }
 
   .hero-sparkles {

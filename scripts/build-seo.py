@@ -25,7 +25,7 @@ from site_config import (
 )
 from structured_data import build_structured_data
 
-STATIC_ASSETS = ("site.css", "site.js", "hero.jpg", "portrait.webp", "favicon.svg")
+STATIC_ASSETS = ("site.css", "site.js", "hero.jpg", "portrait.jpg", "portrait.webp", "favicon.svg")
 # Opening tag of a placeholder reviews section that is not hidden.
 VISIBLE_SAMPLE_REVIEWS = re.compile(r'<section\b(?![^>]*\bhidden\b)[^>]*data-placeholder="reviews"[^>]*>')
 SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -110,7 +110,7 @@ def build_head(config: dict, language: str, content: str) -> str:
         link_tag(**{
             "rel": "preload",
             "as": "image",
-            "href": asset_prefix + "portrait.webp",
+            "href": asset_prefix + "portrait.jpg",
             "fetchpriority": "high",
         }),
         link_tag(rel="stylesheet", href=asset_prefix + "site.css"),

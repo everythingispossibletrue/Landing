@@ -163,7 +163,7 @@ class BuildTests(unittest.TestCase):
             seo_checks.check_archive(self.output, self.archive)
         english = (self.output / "languages" / "en" / "index.html").read_text()
         self.assertIn('href="https://example.test/career/languages/en/"', english)
-        self.assertIn('src="../../portrait.webp"', english)
+        self.assertIn('src="../../portrait.jpg"', english)
         self.assertIn('data-lang="ru" href="../../"', english)
 
     def test_empty_title_and_indexing_directives_are_detected(self):

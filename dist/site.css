@@ -757,6 +757,45 @@ details[open] > summary .plus {
   margin: 20px 0 0;
 }
 
+@media (min-width: 961px) {
+  .experience-demo {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  }
+
+  .demo-before,
+  .demo-after {
+    min-width: 0;
+    padding: clamp(28px, 3vw, 44px);
+  }
+
+  .demo-before {
+    justify-content: flex-start;
+  }
+
+  .demo-before > p {
+    max-width: 19ch;
+    margin-top: 28px;
+    font-size: clamp(26px, 2.4vw, 34px);
+    line-height: 1.35;
+    letter-spacing: -0.5px;
+    text-wrap: balance;
+  }
+
+  .demo-after ol {
+    margin-top: 28px;
+  }
+
+  .demo-after li {
+    gap: 14px;
+    padding-block: 16px;
+    line-height: 1.55;
+  }
+
+  .demo-after li:last-child {
+    padding-bottom: 0;
+  }
+}
+
 /* Services and consultation results */
 
 #service-3 {
@@ -1301,12 +1340,47 @@ footer a {
     gap: 28px;
   }
 
+  .expertise > div {
+    min-width: 0;
+  }
+
+  .expertise h2 {
+    font-size: clamp(28px, 7.5vw, 36px);
+    line-height: 1.2;
+    letter-spacing: -0.7px;
+    text-wrap: initial;
+  }
+
+  .expertise h2 br {
+    display: none;
+  }
+
   .expertise > div > p {
     font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
   }
 
   .proof-list {
-    margin: 25px 0;
+    display: grid;
+    gap: 12px;
+    margin: 24px 0 0;
+  }
+
+  .proof-list article {
+    display: block;
+    padding: 20px;
+    border: 1px solid #c4d2dd;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  .proof-list article > span {
+    display: block;
+    margin-bottom: 10px;
+    padding: 0;
+    color: var(--blue);
+    font-weight: 600;
   }
 
   .proof-list h3 {
@@ -1316,15 +1390,18 @@ footer a {
 
   .proof-list p {
     font-size: 16px;
+    line-height: 1.6;
   }
 
   .expert-quote {
-    padding: 24px;
+    padding: 20px;
+    border-left-width: 2px;
   }
 
   .expert-quote blockquote {
-    font-size: 20px;
-    line-height: 1.7;
+    font-size: 18px;
+    line-height: 1.6;
+    letter-spacing: 0;
   }
 
   .experience-demo {
@@ -2869,7 +2946,7 @@ header > .header-right {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 680px) {
   .offers-grid {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -4049,7 +4126,79 @@ header > nav {
   border-radius: 50%;
 }
 
+/* Keep mobile copy consistent across sections and language versions. */
+@media (max-width: 680px) {
+  .section h2 {
+    text-wrap: initial;
+  }
+
+  .section h2 br {
+    display: none;
+  }
+
+  .business-list p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .aud-card small,
+  .demo-note {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .service-tab {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
+
 .footer-contacts svg {
   width: 20px;
   height: 20px;
+}
+
+/* WhatsApp contact options */
+.whatsapp-link {
+  color: #11633c;
+}
+
+.whatsapp-link .contact-brand {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.hero-whatsapp {
+  margin-top: 18px;
+  gap: 10px;
+}
+
+.whatsapp-tile {
+  background: #11633c;
+  border-color: #11633c;
+  color: #fff;
+}
+
+.whatsapp-tile:hover {
+  background: #0c4d2e;
+  border-color: #0c4d2e;
+}
+
+.whatsapp-tile .contact-tile-copy > small {
+  color: #e0f5e9;
+}
+
+@media (min-width: 801px) {
+  .contact-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-actions > .telegram-tile {
+    grid-column: auto;
+  }
+}
+
+.footer-contacts {
+  flex-wrap: wrap;
 }

@@ -757,6 +757,18 @@ details[open] > summary .plus {
   margin: 20px 0 0;
 }
 
+.demo-point {
+  min-width: 0;
+}
+
+.demo-point strong {
+  font-weight: inherit;
+}
+
+.demo-detail::before {
+  content: " — ";
+}
+
 @media (min-width: 961px) {
   .approach .section-heading {
     display: grid;
@@ -784,29 +796,10 @@ details[open] > summary .plus {
 
   .experience-demo {
     position: relative;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     border-color: #6c91a8;
     border-radius: 22px;
     box-shadow: 0 18px 48px #061c2c26;
-  }
-
-  .experience-demo::after {
-    content: "→";
-    position: absolute;
-    top: 50%;
-    left: calc(100% / 2.1);
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border: 4px solid #163b55;
-    border-radius: 50%;
-    background: var(--sun);
-    color: var(--ink);
-    font-size: 24px;
-    line-height: 1;
-    translate: -50% -50%;
-    pointer-events: none;
   }
 
   .demo-before,
@@ -816,59 +809,87 @@ details[open] > summary .plus {
   }
 
   .demo-before {
+    padding-inline: clamp(18px, 1.8vw, 26px);
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(145deg, #153852, #102d45);
+    background: #102f48;
+  }
+
+  .demo-before::after {
+    content: "";
+    width: 36px;
+    height: 3px;
+    margin-top: 24px;
+    border-radius: 2px;
+    background: var(--sun);
   }
 
   .demo-before .demo-label {
-    padding: 6px 14px;
-    border: 1px solid #52738c;
-    border-radius: 999px;
-    color: #d0e0eb;
-    background: #ffffff08;
+    color: #b8cddd;
+    letter-spacing: 1.2px;
   }
 
   .demo-before > p {
     max-width: none;
     margin: 22px 0 0;
-    font-size: clamp(18px, 1.75vw, 24px);
+    font-size: clamp(16px, 1.55vw, 22px);
     line-height: 1.4;
     letter-spacing: -0.5px;
     white-space: nowrap;
   }
 
   .demo-after {
-    background: #e6f2f9;
+    background: #f4f8fb;
+  }
+
+  .demo-after .demo-label {
+    display: block;
+    color: #315b74;
+    letter-spacing: 0.8px;
   }
 
   .demo-after ol {
-    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 28px;
+    margin-top: 26px;
   }
 
   .demo-after li {
-    align-items: center;
-    gap: 14px;
-    padding-block: 14px;
-    border-color: #c2d7e4;
-    line-height: 1.55;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 18px 0 0;
+    border-color: #cbdce7;
   }
 
   .demo-after li > span {
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border-radius: 50%;
-    background: #d0e5f1;
-    color: #2c5d77;
+    padding-top: 3px;
+    color: #4c7892;
+    font-size: 12px;
     font-weight: 600;
   }
 
-  .demo-after li:last-child {
-    padding-bottom: 0;
+  .demo-point strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.2px;
+    text-wrap: initial;
+  }
+
+  .demo-detail {
+    display: block;
+    color: #4a6274;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .demo-detail::before {
+    content: none;
   }
 
   .approach .demo-note {
